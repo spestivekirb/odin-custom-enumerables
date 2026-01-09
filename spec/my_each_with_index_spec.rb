@@ -31,5 +31,19 @@ RSpec.describe Enumerable do
         expect(my_each_with_index_results).to eq(each_with_index_results)
       end
     end
+
+    context 'when not given a block' do
+      it 'returns an Enumerator' do
+        expect(enumerable.my_each_with_index).to be_a Enumerator
+      end
+
+      it 'contains the elements and indices of the receiving array' do
+        expect(enumerable.my_each_with_index.to_a).to eq(
+          [[1, 0], [1, 1], [2, 2],
+          [3, 3], [5, 4], [8, 5],
+          [13, 6], [21, 7], [34, 8]]
+        )
+      end
+    end
   end
 end

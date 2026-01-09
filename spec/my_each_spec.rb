@@ -31,5 +31,15 @@ RSpec.describe Array do
         expect(my_each_results).to eq(each_results)
       end
     end
+
+    context 'when not given a block' do
+      it 'returns an Enumerator' do
+        expect(array.my_each).to be_a Enumerator
+      end
+
+      it 'contains the elements of the receiving array' do
+        expect(array.my_each.to_a).to eq array
+      end
+    end
   end
 end
