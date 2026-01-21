@@ -44,6 +44,33 @@ module Enumerable
     true
   end
 
+  def my_count
+    return self.length unless block_given?
+    total = 0
+    self.my_each do |i|
+      total += 1 if yield i
+    end
+    total
+  end
+
+  def my_map
+    return to_enum(:my_map) unless block_given?
+    mapped = []
+    self.my_each do |i|
+      mapped.append(yield i)
+    end
+    mapped
+  end
+
+  def my_inject(acc = nil)
+    return to_enum(:my_inject) unless block_given?
+    copy = self.to_a
+    acc = copy.shift if acc == nil
+    self.my_each do |i|
+      acc = yield(acc, i)
+    end
+    acc
+  end
 end
 
 # You will first have to define my_each
