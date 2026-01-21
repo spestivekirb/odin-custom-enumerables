@@ -10,6 +10,40 @@ module Enumerable
     end
     self
   end
+
+  def my_select
+    return to_enum(:my_select) unless block_given?
+    selected = []
+    self.my_each do |i|
+      selected.append(i) if yield i
+    end
+    selected
+  end
+
+  def my_all?
+    return to_enum(:my_all?) unless block_given?
+    self.my_each do |i|
+      return false unless yield i
+    end
+    true
+  end
+
+  def my_any?
+    return to_enum(:my_any?) unless block_given?
+    self.my_each do |i|
+      return true if yield i
+    end
+    false
+  end
+
+  def my_none?
+    return to_enum(:my_none?) unless block_given?
+    self.my_each do |i|
+      return false if yield i 
+    end
+    true
+  end
+
 end
 
 # You will first have to define my_each
